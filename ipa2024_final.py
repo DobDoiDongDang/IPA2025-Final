@@ -7,7 +7,7 @@
 # 1. Import libraries for API requests, JSON formatting, time, os, (restconf_final or netconf_final), netmiko_final, and ansible_final.
 
 import requests, os, time, json
-from restconf_final import create
+from restconf_final import create, status, delete, enable, disable
 
 #######################################################################################
 # 2. Assign the Webex access token to the variable ACCESS_TOKEN using environment variables.
@@ -75,14 +75,14 @@ while True:
 
         if command == "create":
             result = create()
-#        elif command == "delete":
-#            <!!!REPLACEME with code for delete command!!!>
-#        elif command == "enable":
-#            <!!!REPLACEME with code for enable command!!!>
-#        elif command == "disable":
-#            <!!!REPLACEME with code for disable command!!!>
-#        elif command == "status":
-#            <!!!REPLACEME with code for status command!!!>
+        elif command == "status":
+            result = status()
+        elif command == "delete":
+            result = delete()
+        elif command == "enable":
+            result = enable()
+        elif command == "disable":
+            result = disable()
 #         elif command == "gigabit_status":
 #            <!!!REPLACEME with code for gigabit_status command!!!>
 #        elif command == "showrun":
