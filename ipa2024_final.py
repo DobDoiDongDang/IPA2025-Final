@@ -6,7 +6,8 @@
 #######################################################################################
 # 1. Import libraries for API requests, JSON formatting, time, os, (restconf_final or netconf_final), netmiko_final, and ansible_final.
 
-import requests, os, time
+import requests, os, time, json
+from restconf_final import create
 
 #######################################################################################
 # 2. Assign the Webex access token to the variable ACCESS_TOKEN using environment variables.
@@ -30,7 +31,7 @@ while True:
     getParameters = {"roomId": roomIdToGetMessages, "max": 1}
 
     # the Webex Teams HTTP header, including the Authoriztion
-    getHTTPHeader = {"Authorization": "Bearer "+ACCESS_TOKEN }
+    getHTTPHeader = {"Authorization": f"Bearer {ACCESS_TOKEN}" }
 
 # 4. Provide the URL to the Webex Teams messages API, and extract location from the received message.
     
@@ -72,8 +73,8 @@ while True:
 
 # 5. Complete the logic for each command
 
-#        if command == "create":
-#            <!!!REPLACEME with code for create command!!!>     
+        if command == "create":
+            result = create()
 #        elif command == "delete":
 #            <!!!REPLACEME with code for delete command!!!>
 #        elif command == "enable":
@@ -124,14 +125,16 @@ while True:
 
             # the Webex Teams HTTP headers, including the Authoriztion and Content-Type
 #            HTTPHeaders = {"Authorization": <!!!REPLACEME!!!>, "Content-Type": <!!!REPLACEME!!!>}   
+        postData={"roomId": os.getenv("room_id"), "text": result}
+        HTTPHeaders = {"Authorization": f"Bearer {ACCESS_TOKEN}", "Content-Type": "application/json", "Accept":"application/json"}
 
         # Post the call to the Webex Teams message API.
-#        r = requests.post(
-#            "<!!!REPLACEME with URL of Webex Teams Messages API!!!>",
-#            data=<!!!REPLACEME!!!>,
-#            headers=<!!!REPLACEME!!!>,
-#        )
-#        if not r.status_code == 200:
-#            raise Exception(
-#                "Incorrect reply from Webex Teams API. Status code: {}".format(r.status_code)
-#            )
+        r = requests.post(
+            "https://webexapis.com/v1/messages",
+            data=json.dumps(postData),
+            headers=HTTPHeaders,
+        )
+        if not r.status_code == 200:
+            raise Exception(
+                "Incorrect reply from Webex Teams API. Status code: {}".format(r.status_code)
+            )
