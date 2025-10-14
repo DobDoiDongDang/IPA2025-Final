@@ -8,6 +8,7 @@
 
 import requests, os, time, json
 from restconf_final import create, status, delete, enable, disable
+from netmiko_final import gigabit_status
 
 #######################################################################################
 # 2. Assign the Webex access token to the variable ACCESS_TOKEN using environment variables.
@@ -83,8 +84,8 @@ while True:
             result = enable()
         elif command == "disable":
             result = disable()
-#         elif command == "gigabit_status":
-#            <!!!REPLACEME with code for gigabit_status command!!!>
+        elif command == "gigabit_status":
+            result = gigabit_status()
 #        elif command == "showrun":
 #            <!!!REPLACEME with code for showrun command!!!>
 #        else:
@@ -127,7 +128,6 @@ while True:
 #            HTTPHeaders = {"Authorization": <!!!REPLACEME!!!>, "Content-Type": <!!!REPLACEME!!!>}   
         postData={"roomId": os.getenv("room_id"), "text": result}
         HTTPHeaders = {"Authorization": f"Bearer {ACCESS_TOKEN}", "Content-Type": "application/json", "Accept":"application/json"}
-
         # Post the call to the Webex Teams message API.
         r = requests.post(
             "https://webexapis.com/v1/messages",
