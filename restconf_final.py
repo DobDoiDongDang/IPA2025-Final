@@ -2,9 +2,9 @@ import json
 import requests
 requests.packages.urllib3.disable_warnings()
 
+ip="10.0.15.61"
 # Router IP Address is 10.0.15.181-184
-# Testing on local environment so i use 192.168.86.146 (Lazy to use vpn)
-api_url = "https://192.168.86.146/restconf/data/ietf-interfaces:interfaces/interface=Loopback66070225"
+api_url = f"https://{ip}/restconf/data/ietf-interfaces:interfaces/interface=Loopback66070225"
 
 # the RESTCONF HTTP headers, including the Accept and Content-Type
 # Two YANG data formats (JSON and XML) work with RESTCONF 
@@ -15,7 +15,7 @@ headers = {
 basicauth = ("admin", "cisco")
 
 def status():
-    api_url_status = "https://192.168.86.146/restconf/data/ietf-interfaces:interfaces-state/interface=Loopback66070225"
+    api_url_status = f"https://{ip}/restconf/data/ietf-interfaces:interfaces-state/interface=Loopback66070225"
 
     resp = requests.get(
         api_url_status,
