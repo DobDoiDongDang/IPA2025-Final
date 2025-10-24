@@ -114,20 +114,19 @@ while True:
                     else:
                         result = netconf.disable(ip)
                 elif command == "gigabit_status":
-                    if method == "restconf":
-                        result = restconf.gigabit_status()
-                    else:
-                        result = netconf.gigabit_status()
+                        result = gigabit_status(ip)
                 elif command == "showrun":
-                    result = showrun()
+                    result = showrun(ip)
                 else:
                     result = "Error: No command or unknown command"
-        else:
+        elif methodorip in ["restconf", "netconf"]:
             if methodorip == "restconf":
                 result = "Ok: Restconf"
             else:
                 result = "Ok: Netconf"
             method = methodorip 
+        else:
+            result = "Error: No IP specified"
         
 # 6. Complete the code to post the message to the Webex Teams room.
 

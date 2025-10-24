@@ -145,7 +145,7 @@ def enable(ip):
 
 
 def disable(ip):
-    if "enabled" in status(ip):
+    if "disabled" in status(ip):
         return "Cannot shutdown: Interface loopback 66070225 (checked by Netconf)"
     m = manager.connect(
         host=f"{ip}",
