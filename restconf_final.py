@@ -87,6 +87,8 @@ def delete(ip):
 
 def enable(ip):
     api_url = f"https://{ip}/restconf/data/ietf-interfaces:interfaces/interface=Loopback66070225"
+    if "enabled" in status(ip):
+        return "Cannot enable: Interface loopback 66070225 (checked by Restconf)"
     yangConfig = {
             "ietf-interfaces:interface": {
             "name": "Loopback66070225",
@@ -120,6 +122,8 @@ def enable(ip):
 
 def disable(ip):
     api_url = f"https://{ip}/restconf/data/ietf-interfaces:interfaces/interface=Loopback66070225"
+    if "disabled" in status(ip):
+        return "Cannot disable: Interface loopback 66070225 (checked by Restconf)"
     yangConfig = {
             "ietf-interfaces:interface": {
             "name": "Loopback66070225",
