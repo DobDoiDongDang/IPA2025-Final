@@ -22,7 +22,8 @@ ACCESS_TOKEN = os.getenv("access_token")
 
 # Defines a variable that will hold the roomId
 roomIdToGetMessages = os.getenv("room_id")
-
+iplist = ["10.0.15.61", "10.0.15.62", "10.0.15.63", "10.0.15.64", "10.0.15.65"]
+method = ""
 
 while True:
     # always add 1 second of delay to the loop to not go over a rate limit of API calls
@@ -69,30 +70,35 @@ while True:
     # check if the text of the message starts with the magic character "/" followed by your studentID and a space and followed by a command name
     #  e.g.  "/66070123 create"
     if message.startswith("/66070225"):
-
+        
+        methodorip = message.split()[1]
         # extract the command
-        command = message.split()[1]
+        command = message.split()[2]
         print(command)
 
 # 5. Complete the logic for each command
-
-        if command == "create":
-            result = create()
-        elif command == "status":
-            result = status()
-        elif command == "delete":
-            result = delete()
-        elif command == "enable":
-            result = enable()
-        elif command == "disable":
-            result = disable()
-        elif command == "gigabit_status":
-            result = gigabit_status()
-        elif command == "showrun":
-            result = showrun()
+        if methodorip in iplist:
+            if method == "":
+                result == "Error: No method specified"
+            else:
+                if command == "create":
+                    result = create()
+                elif command == "status":
+                    result = status()
+                elif command == "delete":
+                    result = delete()
+                elif command == "enable":
+                    result = enable()
+                elif command == "disable":
+                    result = disable()
+                elif command == "gigabit_status":
+                    result = gigabit_status()
+                elif command == "showrun":
+                    result = showrun()
+                else:
+                    result = "Error: No command or unknown command"
         else:
-            responseMessage = "Error: No command or unknown command"
-            continue
+            method = methodorip 
         
 # 6. Complete the code to post the message to the Webex Teams room.
 
