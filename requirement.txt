@@ -4,8 +4,10 @@ certifi==2025.10.5
 cffi==2.0.0
 charset-normalizer==3.4.3
 cryptography==46.0.2
+dotenv==0.9.9
 idna==3.11
 invoke==2.2.1
+loadenv==0.1.1
 lxml==6.0.2
 markdown-it-py==4.0.0
 mdurl==0.1.2
@@ -17,6 +19,7 @@ pycparser==2.23
 Pygments==2.19.2
 PyNaCl==1.6.0
 pyserial==3.5
+python-dotenv==1.1.1
 PyYAML==6.0.3
 requests==2.32.5
 requests-toolbelt==1.0.0

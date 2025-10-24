@@ -12,9 +12,12 @@ import restconf_final as restconf
 import netconf_final as netconf
 from netmiko_final import gigabit_status, check_motd
 from ansible_final import showrun, config_motd
+from dotenv import load_dotenv
 
 #######################################################################################
 # 2. Assign the Webex access token to the variable ACCESS_TOKEN using environment variables.
+load_dotenv()
+
 
 ACCESS_TOKEN = os.getenv("access_token")
 
