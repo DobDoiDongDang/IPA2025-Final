@@ -65,6 +65,7 @@ while True:
     
     # store the text of the first message in the array
     message = messages[0]["text"]
+    command = ""
     print("Received message: " + message)
 
     # check if the text of the message starts with the magic character "/" followed by your studentID and a space and followed by a command name
@@ -72,25 +73,25 @@ while True:
     if message.startswith("/66070225"):
         
         methodorip = message.split()[1]
-        # extract the command
-        command = message.split()[2]
-        print(command)
 
 # 5. Complete the logic for each command
         if methodorip in iplist:
             if method == "":
-                result == "Error: No method specified"
+                result = "Error: No method specified"
             else:
+                ip = methodorip
+                command = message.split()[2]
+                print(command)
                 if command == "create":
-                    result = create()
+                    result = create(ip)
                 elif command == "status":
-                    result = status()
+                    result = status(ip)
                 elif command == "delete":
-                    result = delete()
+                    result = delete(ip)
                 elif command == "enable":
-                    result = enable()
+                    result = enable(ip)
                 elif command == "disable":
-                    result = disable()
+                    result = disable(ip)
                 elif command == "gigabit_status":
                     result = gigabit_status()
                 elif command == "showrun":
@@ -98,6 +99,10 @@ while True:
                 else:
                     result = "Error: No command or unknown command"
         else:
+            if methodorip == "restconf":
+                result = "Ok: Restconf"
+            else:
+                result = "Ok: Netconf"
             method = methodorip 
         
 # 6. Complete the code to post the message to the Webex Teams room.
