@@ -1,0 +1,10 @@
+---
+- hosts: CSR1kv
+  gather_facts: no
+
+  tasks:
+    - name: Configure the MOTD banner
+      cisco.ios.ios_banner:
+        banner: motd
+        text: "{{ motd }}"
+        state: present

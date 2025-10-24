@@ -10,8 +10,8 @@ import requests, os, time, json
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 import restconf_final as restconf
 import netconf_final as netconf
-from netmiko_final import gigabit_status
-from ansible_final import showrun
+from netmiko_final import gigabit_status, check_motd
+from ansible_final import showrun, config_motd
 
 #######################################################################################
 # 2. Assign the Webex access token to the variable ACCESS_TOKEN using environment variables.
@@ -77,11 +77,16 @@ while True:
 
 # 5. Complete the logic for each command
         if methodorip in iplist:
-            if method == "":
+            command = message.split()[2]
+            ip = methodorip
+            if command == "motd":
+                if len(message.split()) > 3:
+                    result = config_motd(ip, "'"+" ".join(message.split()[3:])+"'")
+                else:
+                    result = check_motd(ip)
+            elif method == "":
                 result = "Error: No method specified"
             else:
-                ip = methodorip
-                command = message.split()[2]
                 print(command)
                 if command == "create":
                     if method == "restconf":
