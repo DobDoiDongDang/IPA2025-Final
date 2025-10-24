@@ -150,4 +150,5 @@ def disable(ip):
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
         return "Cannot disabled: Interface loopback 66070225 (checked by Restconf)"
-
+if __name__ == "__main__":
+    print(create("10.0.15.61"))

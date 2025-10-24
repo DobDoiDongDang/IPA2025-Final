@@ -34,5 +34,12 @@ def gigabit_status():
         ans = ", ".join(int_list) + f" -> {up} up, {down}  down, {admin_down} administratively down"
         return ans
 
+def check_motd(ip):
+    device_params["ip"] = ip
+    with ConnectHandler(**device_params) as ssh:
+        ssh.enable()
+        result = ssh.send_command("show running-config", use_textfsm=True)
+        return result
+
 if __name__ == "__main__":
-    print(gigabit_status())
+    print(check_motd("10.0.15.61"))

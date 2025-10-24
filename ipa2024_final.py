@@ -8,7 +8,8 @@
 
 import requests, os, time, json
 from requests_toolbelt.multipart.encoder import MultipartEncoder
-from restconf_final import create, status, delete, enable, disable
+import restconf_final as restconf
+import netconf_final as netconf
 from netmiko_final import gigabit_status
 from ansible_final import showrun
 
@@ -83,17 +84,35 @@ while True:
                 command = message.split()[2]
                 print(command)
                 if command == "create":
-                    result = create(ip)
+                    if method == "restconf":
+                        result = restconf.create(ip)
+                    else:
+                        result = netconf.create(ip)
                 elif command == "status":
-                    result = status(ip)
+                    if method == "restconf":
+                        result = restconf.status(ip)
+                    else:
+                        result = netconf.status(ip)
                 elif command == "delete":
-                    result = delete(ip)
+                    if method == "restconf":
+                        result = restconf.delete(ip)
+                    else:
+                        result = netconf.delete(ip)
                 elif command == "enable":
-                    result = enable(ip)
+                    if method == "restconf":
+                        result = restconf.enable(ip)
+                    else:
+                        result = netconf.enable(ip)
                 elif command == "disable":
-                    result = disable(ip)
+                    if method == "restconf":
+                        result = restconf.disable(ip)
+                    else:
+                        result = netconf.disable(ip)
                 elif command == "gigabit_status":
-                    result = gigabit_status()
+                    if method == "restconf":
+                        result = restconf.gigabit_status()
+                    else:
+                        result = netconf.gigabit_status()
                 elif command == "showrun":
                     result = showrun()
                 else:
