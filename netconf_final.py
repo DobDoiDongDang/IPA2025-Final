@@ -80,6 +80,8 @@ def create(ip):
 
 
 def delete(ip):
+    if "is" in status(ip):
+        return "Cannot delete: Interface loopback 66070225 (checked by Netconf)"
     m = manager.connect(
         host=f"{ip}",
         port=830,
