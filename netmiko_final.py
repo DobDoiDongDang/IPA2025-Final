@@ -13,7 +13,8 @@ device_params = {
 }
 
 
-def gigabit_status():
+def gigabit_status(ip):
+    device_params["ip"] = ip
     ans = ""
     with ConnectHandler(**device_params) as ssh:
         up = 0

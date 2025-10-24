@@ -3,7 +3,10 @@ import os
 
 os.environ['ANSIBLE_CONFIG'] = "./ansible.cfg"
 
-def showrun():
+def showrun(ip):
+    host = f"CSR1kv ansible_user=admin ansible_password=cisco ansible_host={ip} ansible_network_os=ios ansible_connection=network_cli"
+    with open("./ansible/hosts", 'w') as f:
+        f.write(host)
     # read https://www.datacamp.com/tutorial/python-subprocess to learn more about subprocess
     command = ['ansible-playbook', './ansible/ansible_playbook.yaml', '-i', './ansible/hosts']
     result = subprocess.run(command, capture_output=True, text=True)
